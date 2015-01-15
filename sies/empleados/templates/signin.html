@@ -6,11 +6,17 @@
 </head>
 <body>
 	<section>
-		<form action="" method="post">
-			{% csrf_token %}
-			{{form.as_p}}
-			<input type="submit" value="Enviar">
-		</form>
+		<h1>{{ user }}</h1>
+		{% if user.is_authenticated and user.is_active %}
+	        Bienvenidooo {{user.username|capfirst}}
+	    {% else %}
+	        <form action="" method="post">
+				{% csrf_token %}
+				{{form.as_p}}
+				<input type="submit" value="Submit">
+			</form>
+	    {% endif %}  
+		
 	</section>
 </body>
 </html>

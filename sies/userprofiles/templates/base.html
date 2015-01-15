@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+	<h1>{{ user }}</h1>
+	{% if user.is_authenticated and user.is_active %}
+        Bienvenidooo {{user.username|capfirst}}
+    <a href="logout/">Salir</a>
+    {% else %}
+        <a href="signin/">Iniciar Sesión</a>
+    {% endif %}  
+	<section>
+		{% block body_block %}{% endblock %}
+	</section> 
+</body>
+</html> 

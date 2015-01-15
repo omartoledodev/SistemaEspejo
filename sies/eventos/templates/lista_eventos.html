@@ -1,0 +1,59 @@
+<!doctype html> 
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	{% if user.is_authenticated %}
+        <a>Bienvenido {{user.username|capfirst}}</a>
+        <a href="">{{user.email}}</a>
+        <a href="">{{user.id}}</a>
+        <a href="">{{user.userprofile.gafete}}</a>
+        <a href="">{{user.userprofile.genero}}</a>
+        <a href="logout/">Salir</a>
+    {% else %} 
+        <a href="signin/">Iniciar Sesión</a>
+    {% endif %} 
+	<h1>Eventos</h1>
+			<table>
+					<th>Clave</th>
+					<th>Evento</th>
+					<th>Teatro</th>
+					<th>Dia</th>
+					<th>Horario</th>
+					<th>Hombres</th>
+					<th>Mujeres</th>
+			</table>
+	<div>
+		<div>
+			{% for evento in event %}
+				<td>{{ evento.id }}</td>
+				<td>{{ evento.evento }}</td>
+				<td>{{ evento.teatro }}</td>
+				<td>{{ evento.fecha | date:"D d M Y" }}</td>
+				<td>{{ evento.fecha | time:"H:i" }}</td>
+				<td>{{ evento.hombres }}</td>
+				<td>{{ evento.mujeres }}</td>
+			</br>
+		{% endfor %}
+	</div>
+	<div>
+		<h2>Regista un Evento</h2>
+		<strong><p>Selecciona el evento que deseas registrar.</p></strong>
+		
+		<form action="" method="post">
+			{% csrf_token %}
+			
+			{{ form_event.as_p }}
+
+			<input type="submit" value="Registrar">
+		</form>
+	</div>
+	<div>
+		<h2>Mis Eventos</h2>
+		{% for evento in mis_eventos %}
+			<p>{{ evento.fecha }}</p>
+		{% endfor %}
+	</div>
+</body>
+</html>	

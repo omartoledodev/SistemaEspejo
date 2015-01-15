@@ -38,6 +38,14 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'eventos',
     'empleados',
+    'userprofiles',
+    'asistencias',
+    'listas_asistencias',
+    'rest_framework',
+    'sanciones',
+    'extras',
+    'cextras',
+    'csanciones',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -68,7 +76,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-MX'
 
 TIME_ZONE = 'UTC'
 

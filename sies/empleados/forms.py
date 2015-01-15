@@ -1,18 +1,22 @@
-from django import forms
-from django.contrib.auth import authenticate
+from django import forms   
+from django.contrib.auth import authenticate, get_user 
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import User
+from django.shortcuts import redirect
+from eventos.models import Evento
+
 
 
 class UserCreationEmailForm(UserCreationForm):
 	email = forms.EmailField()
-	first_name = forms.CharField(max_length=200)
-	last_name = forms.CharField(max_length=200)
+	#first_name = forms.CharField(max_length=200)
+	#last_name = forms.CharField(max_length=200)
 
-
+ 
 	class Meta:
 		model = User
-		fields = ('first_name', 'last_name','email','username')
+		fields = ('username','email')
 		#fields = '__all__'
 
 		#validar email
@@ -27,28 +31,28 @@ class UserCreationEmailForm(UserCreationForm):
 
 class EmailAuthenticationForm(forms.Form):
 	email = forms.EmailField()
-	password = forms.CharField(label='Password', widget=forms.PasswordInput)
+	password = forms.CharField(label='Password', widget=forms.PasswordInput)#init del padre,se define personalizado
 
-	def __init__(self, *args, **kwargs):
-		self.user_cache = None #se inicializa en NONE
-		super(EmailAuthenticationForm, self).__init__(*args, **kwargs)
+	def __init__(self, *args, **kwargs):#constructor
+		self.user_cache = None #incializar variable vacia
+		super(EmailAuthenticationForm, self).__init__(*args, **kwargs)#super padre de la clase para hacer el init
 
 	def clean(self):
-		email = self.cleaned_data.get('email')#capturar datos
+		email = self.cleaned_data.get('email')
 		password = self.cleaned_data.get('password')
 
-		#authenticate devuelve el usuario o NONE
-		self.user_cache = authenticate(email=email, password=password)#se captura al usuario que se quiere loggear
+		self.user_cache = authenticate(email=email, password=password)
 
+		#la funcion authenticate puede devolver el usuario or none
 		if self.user_cache is None:
-			raise forms.ValidationError('Usuario Incorrecto')
-		elif not self.user_cache.is_active: #revisa que el usuario este activo, esta info esta en admin
-		    raise forms.ValidationError('Usuario Inactivo')
+			raise forms.ValidationError('Usuario Incorrecto')#levantar un error si  los datos no son correctos
+		elif not self.user_cache.is_active:
+			raise forms.ValidationError('usuario inactivo')
 
 		return self.cleaned_data
 
-	#funcion que regresa el usuario que esta en user_cache
 	def get_user(self):
-		return self.user_cache
+		return 	self.user_cache
 
-
+class DeleteEventForm(forms.Form):
+	clave_evento = forms.ModelChoiceField(queryset=Evento.objects.values_list('id', flat=True).all())
