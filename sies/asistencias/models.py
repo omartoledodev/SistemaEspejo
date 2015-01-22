@@ -1,10 +1,10 @@
-from django.db import models
+from django.db import models  
 
 # Create your models here.
 class Asistencia(models.Model):
-	idusuario = models.PositiveIntegerField()
-	clave_evento = models.PositiveIntegerField()
+	gafete_a = models.PositiveIntegerField()
+	idevento_a = models.PositiveIntegerField()
+	fecha_a = models.DateTimeField()
 
 	def __unicode__(self):
-		self.clave_evento=str(self.clave_evento)
-		return self.clave_evento 
+		return unicode(self.gafete_a)

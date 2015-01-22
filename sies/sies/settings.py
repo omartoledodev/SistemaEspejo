@@ -44,8 +44,9 @@ INSTALLED_APPS = (
     'rest_framework',
     'sanciones',
     'extras',
-    'cextras',
-    'csanciones',
+    'pagos',
+    'inasistencias',
+    'administrador',
 )
 
 MIDDLEWARE_CLASSES = (

@@ -1,0 +1,19 @@
+{% extends "base_admin.html" %}
+
+	{% block title%} {{title}} {% endblock %}
+
+	{% block body_block %}
+	<p><strong>Sanciones</strong></p>
+		<form method="post">
+			{% csrf_token %}
+			<p>Empleado :
+			<select name="gafete" required >
+				{% for empleado in empleados %}
+				<option value="{{empleado.gafete}}">{{empleado.nombre}} {{empleado.apellido}}</option>
+				{% endfor %}
+			</select></p>
+			<p>Cantidad : <input type="number" name="cantidad" min=0 max=500 requered ></p>
+			<p>Fecha : <input type"text" name="fecha" required value="{{ now|date:"Y-m-d" }}" blocked></p>
+			<input type="submit" value="Agregar">
+		</form>
+	{% endblock %}

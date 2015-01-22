@@ -10,6 +10,7 @@ class Evento(models.Model):
 	fecha = models.DateTimeField()
 	hombres = models.PositiveIntegerField()
 	mujeres =  models.PositiveIntegerField()
+	verificado = models.BooleanField(default=False)
 
 	def get_absolute_url(self):
 		return '/eventos/%s/' % self.teatro

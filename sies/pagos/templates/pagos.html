@@ -1,0 +1,46 @@
+{% extends "base_admin.html" %}
+ 
+	{% block title%} {{title}} {% endblock %}
+
+	{% block body_block %}
+	<form method="post">
+		{% csrf_token %}
+		<p>Selecciona al empleado que deseas pagar: </p>
+		<p><select name="gefete" id="gafete" required>
+			{% for e in empleados %}
+				<option value="{{e.gafete}}">{{e.nombre}} {{e.apellido}}</option>
+			{% endfor %}
+		</select></p>
+
+		<p>Selecciona el intervalo de busqueda</p>
+		<p>De : <input type="date" name="start">  a  <input type="date" name="end">     <small><input type="checkbox" name="imprimir" value="True"> Imprimir </small></p>    
+		<input type="submit" value="Consultar">
+	</form>
+	{% endblock %}
+
+	{% if fecha_start %}
+		{% block content %}
+			<h3>Asistencias</h3>
+
+			{% for a in eventos_a %}
+				<p>{{a|date:"l"}} {{a}}</p>
+			{% empty %}
+			<p><strong>No hay Asistencias </strong></p>
+			{% endfor %}
+			</br>
+
+			<h3>Inasistencias</h3>
+
+			{% for i in eventos_i %}
+				<p>{{i|date:"l"}} {{i}}</p>
+			{% empty %}
+			<p><strong>No hay Inasistencias </strong></p>
+			{% endfor %}
+			</br>
+			
+			<p>Total a pagar en el periodo de {{ fecha_start }} a {{ fecha_end }}</p>
+			<strong>Total : </strong> ${{total}}
+
+		{% endblock %}
+	{% endif %}
+	<img src="">

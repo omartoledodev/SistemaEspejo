@@ -1,0 +1,37 @@
+{% extends "base_admin.html" %} 
+	{% block title%} {{title}} {% endblock %}
+
+	{% block body_block %}
+		<p>Asistencias</p>
+	
+	
+		<form method="post">
+			{% csrf_token %}
+			Seleccione un Evento para revisar asistencias.</br>
+
+			<p>Evento: <select name="id_evento" id="id_evento">
+						{% for evento in eventos %}
+							<option value="{{ evento.id }}">{{ evento.evento }}</option>
+						{% endfor %}
+					</select>
+					<small><input type="checkbox" name="imprimir" value="True"> Imprimir </small><p>
+					<input type="submit" value="Buscar">
+	{% endblock %}				
+	{% block content %}
+			<h1>{{evento.evento}}</h1>
+			<p>{{evento.teatro}}</p>
+			<p>{{evento.fecha}}</p>
+			</br>
+			
+			{% for empleado in empleados %}
+			<input type="checkbox" value="{{ empleado.gafete_l}}" name="{{ empleado.gafete_l}}"> {{ empleado.first_name }} {{ empleado.last_name }}
+			</br>
+			{% endfor %}
+			<p></p>
+			<input type="submit" value="Enviar">
+		
+		</form>
+	{% endblock %}
+	{{lista}}
+</body>
+</html>

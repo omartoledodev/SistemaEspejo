@@ -14,8 +14,9 @@ class Migration(migrations.Migration):
             name='Asistencia',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('email', models.CharField(max_length=200)),
-                ('clave_evento', models.PositiveSmallIntegerField()),
+                ('gafete', models.PositiveIntegerField()),
+                ('idevento', models.PositiveIntegerField()),
+                ('fecha', models.DateField()),
             ],
             options={
             },
